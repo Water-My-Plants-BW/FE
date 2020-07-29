@@ -3,7 +3,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialPlant = {
   id: Date.now(),
-  nickname: { nickname: "" },
+  nickname: "",
   species: "",
   H20Frequency: ""
 };
@@ -113,11 +113,11 @@ const PlantList = ({ plants, updatePlants }) => {
       )}
       
       <form onSubmit={submitNewPlant}>
-        <label htmlFor='plant'>Plant Nickname: </label>
+        <label htmlFor='nickname'>Plant Nickname: </label>
         <input type='text' name='nickname' id='nickname' value={newPlant.nickname} onChange={(event) => {
           setNewPlant({
             ...newPlant,
-            plant: event.target.value
+            nickname: event.target.value
           })
         }} />
         <label htmlFor='species'>Species: </label>

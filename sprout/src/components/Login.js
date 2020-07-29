@@ -7,17 +7,17 @@ import Navbar from './Navbar'
 const loginSchema = yup.object().shape({
   loginUsername: yup
     .string()
-    .min(6, "minimum of 6 characters required")
+    .min(5, "minimum of 5 characters required")
     .required(),
   loginPassword: yup
     .string()
-    .min(10, "minimum of 10 characters required")
+    .min(7, "minimum of 7 characters required")
     .required(),
 });
 
 function Login() {
   const [login, setLogin] = useState({
-    loginusername: "",
+    loginUsername: "",
     loginPassword: "",
   });
 
@@ -66,7 +66,7 @@ function Login() {
 
   const submitLogin = (event) => {
     event.preventDefault();
-    axios.post("https://reqres.in/api/users", login).then((res) => {
+    axios.post("https://lambda-sprout.herokuapp.com/login", login).then((res) => {
       setPost(res.data);
       console.log("logged in", post);
 
@@ -93,7 +93,7 @@ function Login() {
             value={login.loginUsername}
             placeholder="       Enter username"
           />
-          {errors.loginUsername.length > 6 ? (
+          {errors.loginUsername.length > 5 ? (
             <p className="error">{errors.loginUsername}</p>
           ) : null}
         </label>
@@ -107,10 +107,10 @@ function Login() {
             required
             onChange={handleChange}
             value={login.loginPassword}
-            minLength="10"
+            minLength="7"
             placeholder="       Enter password"
           />
-          {errors.loginPassword.length > 10 ? (
+          {errors.loginPassword.length > 7 ? (
             <p className="error">{errors.loginPassword}</p>
           ) : null}
         </label>

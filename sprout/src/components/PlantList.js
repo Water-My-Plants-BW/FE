@@ -5,13 +5,14 @@ const initialPlant = {
   id: Date.now(),
   nickname: "",
   species: "",
-  H20Frequency: ""
+  h2oFrequency: ""
 };
 
 const PlantList = ({ plants, updatePlants }) => {
   const [editing, setEditing] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState(initialPlant);
   const [newPlant, setNewPlant] = useState(initialPlant);
+  let id = localStorage.getItem('userId')
 
   const editPlant = plant => {
     setEditing(true);
@@ -24,7 +25,7 @@ const PlantList = ({ plants, updatePlants }) => {
     axiosWithAuth().put(`https://lambda-sprout.herokuapp.com/plants/${plantToEdit.id}`, plantToEdit)
     .then(response => {
       console.log(response)
-      axiosWithAuth().get('https://lambda-sprout.herokuapp.com/users/3/plants')
+      axiosWithAuth().get(`https://lambda-sprout.herokuapp.com/users/${id}/plants`)
       .then(response => {
         updatePlants(response.data)
       })
@@ -42,7 +43,7 @@ const PlantList = ({ plants, updatePlants }) => {
 
   const submitNewPlant = event => {
     event.preventDefault();
-    axiosWithAuth().post('https://lambda-sprout.herokuapp.com/users/3/plants', newPlant)
+    axiosWithAuth().post(`https://lambda-sprout.herokuapp.com/users/${id}/plants`, newPlant)
     .then(response => {
       updatePlants(response.data)
       setNewPlant(initialPlant);
@@ -94,15 +95,15 @@ const PlantList = ({ plants, updatePlants }) => {
             />
           </label>
           <label>
-            H20Frequency:
+            h2oFrequency:
             <input
               onChange={e =>
                 setPlantToEdit({
                   ...plantToEdit,
-                  H20Frequency: e.target.value }
+                  h2oFrequency: e.target.value }
                 )
               }
-              value={plantToEdit.H20Frequency}
+              value={plantToEdit.h2oFrequency}
             />
           </label>
           <div>
@@ -127,11 +128,11 @@ const PlantList = ({ plants, updatePlants }) => {
             species: event.target.value}
           )
         }} />
-        <label htmlFor='h20frequency'>H20Frequency: </label>
-        <input type='text' name='h20frequency' id='h20frequency' value={newPlant.H20Frequency} onChange={(event) => {
+        <label htmlFor='h2ofrequency'>h2oFrequency: </label>
+        <input type='text' name='h2ofrequency' id='h2ofrequency' value={newPlant.h2oFrequency} onChange={(event) => {
           setNewPlant({
             ...newPlant,
-            H20Frequency: event.target.value}
+            h2oFrequency: event.target.value}
           )
         }} />
         <button type='submit'>Add a new plant!</button>

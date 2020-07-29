@@ -122,7 +122,6 @@ class User extends React.Component {
 
             <div className="btn">
               <button onClick={this.deleteMyAccount}>
-                {" "}
                 Delete My Account permanantly
               </button>
               <button className="updateBtn" onClick={this.updateInfo}>

@@ -6,7 +6,7 @@ const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
 
   useEffect(() => {
-    axiosWithAuth().get('http://backendhere/api/plants')
+    axiosWithAuth().get('https://lambda-sprout.herokuapp.com/users/3/plants')
     .then(res => {
       setPlantList(res.data)
     })

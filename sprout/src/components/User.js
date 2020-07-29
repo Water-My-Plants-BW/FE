@@ -9,12 +9,12 @@ class User extends React.Component {
     this.state = {
       username: "",
       id: "",
-      phone: "",
+      phoneNumber: "",
       password: "",
     };
   }
   componentDidMount() {
-    let id = localStorage.getItem(`id`);
+    let id = localStorage.getItem(`useId`);
     const url = `https://lambda-sprout.herokuapp.com/api/user/${id}`;
     this.setState({ id: id });
     

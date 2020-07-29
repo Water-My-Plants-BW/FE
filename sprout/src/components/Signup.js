@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 const signUpSchema = yup.object().shape({
   username: yup.string().min(6,"minimum of 6 characters required").required("Username is a required field"),
-  phone: yup.string().min(12,"Please use 111-111-1111 format").required(),
+  phoneNumber: yup.string().min(12,"Please use 111-111-1111 format").required(),
   password: yup.string().min(10,"minimum of 10 characters required").required()
 
 })
@@ -13,13 +13,13 @@ const signUpSchema = yup.object().shape({
 function Signup() {
   const [signUp, setSignUp] = useState({
     username: "",
-    phone: "",
+    phoneNumber: "",
     password: "",
   });
 
   const  [errors, setErrors]= useState({
     username: "",
-    phone: "",
+    phoneNumber: "",
     password: "",
   })
 
@@ -61,14 +61,14 @@ const validateChange = event => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    axios.post("https://reqres.in/api/users", signUp)
+    axios.post("https://lambda-sprout.herokuapp.com/register", signUp)
     .then(res => {
       setPost(res.data);
       console.log("Registered!", post);
       
       setSignUp({
     username: "",
-    phone: "",
+    phoneNumber: "",
     password: "",
 
       })
@@ -94,19 +94,19 @@ const validateChange = event => {
           {errors.username.length > 6 ?<p className= "error">{errors.username}</p> : null}
         </label>
 
-        <label htmlFor="phone" className="phone">
+        <label htmlFor="phoneNumber" className="phone">
           Enter your phone number
           <input
             type="tel"
-            id="phone"
-            name="phone"
+            id="phoneNumber"
+            name="phoneNumber"
             onChange={handleChanges}
-            value={signUp.phone}
+            value={signUp.phoneNumber}
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             required
             placeholder="       123-456-7890"
           />
-          {errors.phone.length > 12 ?<p className= "error">{errors.phone}</p> : null}
+          {errors.phoneNumber.length > 12 ?<p className= "error">{errors.phoneNumber}</p> : null}
         </label>
 
         <label htmlFor="password" className="password">

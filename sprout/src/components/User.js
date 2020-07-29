@@ -14,7 +14,7 @@ class User extends React.Component {
     };
   }
   componentDidMount() {
-    let id = localStorage.getItem(`useId`);
+    let id = localStorage.getItem(`userId`);
     const url = `https://lambda-sprout.herokuapp.com/api/users/${id}`;
     this.setState({ id: id });
     
@@ -41,7 +41,7 @@ class User extends React.Component {
       password: this.state.password,
       phoneNumber: this.state.phoneNumber,
     };
-    id = localStorage.getItem(`useId`);
+    id = localStorage.getItem(`userId`);
     console.log(id);
     const url =
       `https://lambda-sprout.herokuapp.com//api/users/${id}` ||
@@ -71,7 +71,7 @@ class User extends React.Component {
   };
 
   deleteMyAccount = (id) => {
-    id = localStorage.getItem(`useId`);
+    id = localStorage.getItem(`userId`);
     const url =
     `https://lambda-sprout.herokuapp.com/api/users/${id}` ||
       `http://localhost:3000/api/users/${id}`;

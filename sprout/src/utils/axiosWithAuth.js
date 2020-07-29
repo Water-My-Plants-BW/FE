@@ -3,7 +3,7 @@ import axios from 'axios';
 export const axiosWithAuth = () => {
     const token = localStorage.getItem('token');
     return axios.create({
-        baseURL: "http://backendhere/api/",
+        baseURL: "https://lambda-sprout.herokuapp.com/",
         headers: {
             Authorization: token
         }

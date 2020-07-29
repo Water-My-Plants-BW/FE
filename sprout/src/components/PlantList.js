@@ -21,10 +21,10 @@ const PlantList = ({ plants, updatePlants }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    axiosWithAuth().put(`http://backendhere/api/plants/${plantToEdit.id}`, plantToEdit)
+    axiosWithAuth().put(`https://lambda-sprout.herokuapp.com/plants/${plantToEdit.id}`, plantToEdit)
     .then(response => {
       console.log(response)
-      axiosWithAuth().get('http://backendhere/api/plants')
+      axiosWithAuth().get('https://lambda-sprout.herokuapp.com/users/3/plants')
       .then(response => {
         updatePlants(response.data)
       })
@@ -33,7 +33,7 @@ const PlantList = ({ plants, updatePlants }) => {
   };
 
   const deletePlant = plant => {
-    axiosWithAuth().delete(`http://backendhere/api/colors/${plant.id}`)
+    axiosWithAuth().delete(`https://lambda-sprout.herokuapp.com/plants/${plant.id}`)
     .then(response => {
       updatePlants(plants.filter(plantId => plantId.id !== plant.id ))
     })
@@ -42,7 +42,7 @@ const PlantList = ({ plants, updatePlants }) => {
 
   const submitNewPlant = event => {
     event.preventDefault();
-    axiosWithAuth().post('http://backendhere/api/plants', newPlant)
+    axiosWithAuth().post('https://lambda-sprout.herokuapp.com/users/3/plants', newPlant)
     .then(response => {
       updatePlants(response.data)
       setNewPlant(initialPlant);

@@ -15,7 +15,7 @@ class User extends React.Component {
   }
   componentDidMount() {
     let id = localStorage.getItem(`useId`);
-    const url = `https://lambda-sprout.herokuapp.com/api/user/${id}`;
+    const url = `https://lambda-sprout.herokuapp.com/api/users/${id}`;
     this.setState({ id: id });
     
       // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. 
@@ -23,7 +23,7 @@ class User extends React.Component {
         axios
             .get(url, { headers: { Authorization: localStorage.getItem("token") } })
             .then(res => {
-                this.setState({ username: res.data.username,  phone: res.data.phone})
+                this.setState({ username: res.data.username,  phoneNumber: res.data.phoneNumber})
             })
     } catch (err) {
         console.log(err);
@@ -39,14 +39,14 @@ class User extends React.Component {
     data = {
       username: this.state.username,
       password: this.state.password,
-      phone: this.state.phone,
+      phoneNumber: this.state.phoneNumber,
     };
-    id = localStorage.getItem(`id`);
+    id = localStorage.getItem(`useId`);
     console.log(id);
     const url =
-      `https://lambda-sprout.herokuapp.com//api/user/${id}` ||
+      `https://lambda-sprout.herokuapp.com//api/users/${id}` ||
 
-              `http://localhost:3000/api/user/${id}`;
+              `http://localhost:3000/api/users/${id}`;
 
       // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. The throw statement lets you create custom errors. 
       try{
@@ -58,12 +58,12 @@ class User extends React.Component {
           console.log(res);
           this.setState({
             username: res.data.username,
-            phone: res.data.phone,
+            phoneNumber: res.data.phoneNumber,
             password: res.data.password,
           });
           alert("Your Update Submitted Successfully");
-          console.log(res.data.phone);
-          this.props.history.push("/myplants");
+          console.log(res.data.phoneNumber);
+          this.props.history.push("/plants");
         });
     } catch (err) {
       console.log(err);
@@ -71,9 +71,9 @@ class User extends React.Component {
   };
 
   deleteMyAccount = (id) => {
-    id = localStorage.getItem(`id`);
+    id = localStorage.getItem(`useId`);
     const url =
-    `https://lambda-sprout.herokuapp.com/api/user/${id}` ||
+    `https://lambda-sprout.herokuapp.com/api/users/${id}` ||
       `http://localhost:3000/api/users/${id}`;
       
     alert("Your Account Will be deleted permanantly");
@@ -114,8 +114,8 @@ class User extends React.Component {
               <input
                 className="input"
                 onChange={this.handleInput}
-                placeholder="phone"
-                value={this.state.phone}
+                placeholder="phoneNumber"
+                value={this.state.phoneNumber}
                 name="phone"
               />
             </form>

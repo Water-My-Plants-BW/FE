@@ -9,7 +9,7 @@ class UserProfile extends React.Component {
     this.state = {
       username: "",
       id: "",
-      phone: "",
+      phoneNumber: "",
       password: "",
     };
   }
@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
         .then((res) => {
           this.setState({
             username: res.data.username,
-            phone: res.data.phone,
+            phoneNumber: res.data.phoneNumber,
           });
         });
     } catch (err) {
@@ -36,7 +36,7 @@ class UserProfile extends React.Component {
     return (
       <div>
         <h3>Name : {this.state.username}</h3>
-        <h3>Phone : {this.state.phone}</h3>
+        <h3>phone# : {this.state.phoneNumber}</h3>
       </div>
     );
   }

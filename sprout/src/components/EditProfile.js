@@ -15,7 +15,7 @@ class UserProfile extends React.Component {
   }
   componentDidMount() {
     let id = localStorage.getItem(`id`);
-    const url = `https://lambda-sprout.herokuapp.com/api/users/${id}`
+    const url = `https://lambda-sprout.herokuapp.com/api/user/${id}`
 
     this.setState({ id: id });
     try {

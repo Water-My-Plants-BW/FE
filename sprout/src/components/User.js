@@ -44,9 +44,9 @@ class User extends React.Component {
     id = localStorage.getItem(`id`);
     console.log(id);
     const url =
-      `https://lambda-sprout.herokuapp.com//api/users/${id}` ||
+      `https://lambda-sprout.herokuapp.com//api/user/${id}` ||
 
-              `http://localhost:5000/api/users/${id}`;
+              `http://localhost:3000/api/user/${id}`;
 
       // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. The throw statement lets you create custom errors. 
       try{
@@ -73,8 +73,8 @@ class User extends React.Component {
   deleteMyAccount = (id) => {
     id = localStorage.getItem(`id`);
     const url =
-    `https://lambda-sprout.herokuapp.com/api/users/${id}` ||
-      `http://localhost:5000/api/users/${id}`;
+    `https://lambda-sprout.herokuapp.com/api/user/${id}` ||
+      `http://localhost:3000/api/users/${id}`;
       
     alert("Your Account Will be deleted permanantly");
     try {

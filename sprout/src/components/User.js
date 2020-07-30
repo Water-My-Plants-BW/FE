@@ -21,7 +21,7 @@ class User extends React.Component {
       // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. 
       try {
         axios
-            .get(url, { headers: { Authorization: localStorage.getItem("token") } })
+            .get(url, { headers: { token: localStorage.getItem("token") } })
             .then(res => {
                 this.setState({ username: res.data.username,  phoneNumber: res.data.phoneNumber})
             })
@@ -52,7 +52,7 @@ class User extends React.Component {
       try{
       axios
         .put(url, data, {
-          headers: { Authorization: localStorage.getItem("token") },
+          headers: { token: localStorage.getItem("token") },
         })
         .then((res) => {
           console.log(res);
@@ -63,7 +63,7 @@ class User extends React.Component {
           });
           alert("Your Update Submitted Successfully");
           console.log(res.data.phoneNumber);
-          this.props.history.push("/plants");
+          // this.props.history.push("/plants");
         });
     } catch (err) {
       console.log(err);
@@ -181,3 +181,5 @@ const UserBar = styled.div`
       }
     }
   `
+
+

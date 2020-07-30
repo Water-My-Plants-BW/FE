@@ -11,6 +11,7 @@ const PlantPage = () => {
     .then(res => {
       setPlantList(res.data)
     })
+    .catch(err => console.log(err))
   }, [id])
 
   return (

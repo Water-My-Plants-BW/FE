@@ -8,7 +8,6 @@ class UserProfile extends React.Component {
     super(props);
     this.state = {
       username: "",
-      id: "",
       phoneNumber: "",
       password: "",
     };
@@ -20,7 +19,8 @@ class UserProfile extends React.Component {
     this.setState({ id: id });
     try {
       axios
-        .get(url, { headers: { Authorization: localStorage.getItem("token") } })
+        .get(url, { headers: {  token: localStorage.getItem("token") } })
+                                // Authorization
         .then((res) => {
           this.setState({
             username: res.data.username,
@@ -59,4 +59,3 @@ padding-top: 60px;
 padding-bottom: 60px;
 margin: 50px auto;
 `
-//withRouter gives component access to this.props.history, which means the component redirect the user.

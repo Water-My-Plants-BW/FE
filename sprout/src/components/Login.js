@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import axios from "axios";
 import { Button } from 'reactstrap';
 import Navbar from './Navbar'
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const loginSchema = yup.object().shape({
-  loginUsername: yup
+  username: yup
     .string()
     .min(5, "minimum of 5 characters required")
     .required(),
-  loginPassword: yup
+  password: yup
     .string()
     .min(7, "minimum of 7 characters required")
     .required(),
@@ -17,13 +17,13 @@ const loginSchema = yup.object().shape({
 
 function Login() {
   const [login, setLogin] = useState({
-    loginUsername: "",
-    loginPassword: "",
+    username: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({
-    loginUsername: "",
-    loginPassword: "",
+    username: "",
+    password: "",
   });
 
   const [buttonDisable, setButtonDisable] = useState(true);
@@ -66,13 +66,16 @@ function Login() {
 
   const submitLogin = (event) => {
     event.preventDefault();
-    axios.post("https://lambda-sprout.herokuapp.com/login", login).then((res) => {
+    axiosWithAuth().post("https://lambda-sprout.herokuapp.com/login", login)
+    .then((res) => {
       setPost(res.data);
       console.log("logged in", post);
+      localStorage.setItem('token', res.data.token)
+      localStorage.setItem('userId', res.data.userId)
 
       setLogin({
-        loginUsername: "",
-        loginPassword: "",
+        username: "",
+        password: "",
       });
     });
   };
@@ -82,36 +85,36 @@ function Login() {
     <Navbar />
       <h1>LOGIN</h1>
       <form onSubmit={submitLogin}>
-        <label htmlFor="loginUsername" className="loginUsername">
+        <label htmlFor="username" className="loginUsername">
           Enter username
           <input
             type="text"
-            id="loginUsername"
-            name="loginUsername"
+            id="username"
+            name="username"
             required
             onChange={handleChange}
-            value={login.loginUsername}
+            value={login.username}
             placeholder="       Enter username"
           />
-          {errors.loginUsername.length > 5 ? (
-            <p className="error">{errors.loginUsername}</p>
+          {errors.username.length > 5 ? (
+            <p className="error">{errors.username}</p>
           ) : null}
         </label>
 
-        <label htmlFor="loginPassword" className="loginPassword">
+        <label htmlFor="password" className="loginPassword">
           Enter password
           <input
             type="password"
-            id="loginPassword"
-            name="loginPassword"
+            id="password"
+            name="password"
             required
             onChange={handleChange}
-            value={login.loginPassword}
+            value={login.password}
             minLength="7"
             placeholder="       Enter password"
           />
-          {errors.loginPassword.length > 7 ? (
-            <p className="error">{errors.loginPassword}</p>
+          {errors.password.length > 7 ? (
+            <p className="error">{errors.password}</p>
           ) : null}
         </label>
         <Button color="warning"disabled={buttonDisable} type="submit">

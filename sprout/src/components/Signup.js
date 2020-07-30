@@ -81,7 +81,7 @@ const validateChange = event => {
   return (
     <div className="signup">
       <SignupContainer>
-      
+      <Navbar />
       <form onSubmit={submitForm}>
       <h1>Create Account!</h1>
         <label htmlFor="username" className="username">

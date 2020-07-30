@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button } from 'reactstrap';
-import Navbar from './Navbar'
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import styled from "styled-components";
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -82,7 +82,6 @@ function Login() {
 
   return (
     <div className="login">
-    <Navbar />
       <h1>LOGIN</h1>
       <form onSubmit={submitLogin}>
         <label htmlFor="username" className="loginUsername">
@@ -124,4 +123,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;

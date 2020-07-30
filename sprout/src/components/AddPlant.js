@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import Input from "./Input"
+import Input from "./Input";
 
 const defaultState = {
   id: "",
@@ -108,8 +108,6 @@ function AddPlantForm(props) {
      <form onSubmit={handleSubmit}>
        <div className="innerWrapper">
 
-
-       {console.log(errors[0])}
        <Input className="input" name="id" type="String" value={formState.id} onChange={handleInputChange} placeholder="ENTER PLANT ID" errors={errors.id}></Input>
 
        <Input className="input" name="nickname" type="text" value={formState.nickname} onChange={handleInputChange} placeholder="ENTER NAME" errors={errors.nickname}></Input>

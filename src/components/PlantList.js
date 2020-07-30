@@ -20,7 +20,7 @@ const PlantList = ({ plants, updatePlants }) => {
   const [newPlant, setNewPlant] = useState(initialPlant);
   const [errors, setErrors] = useState({...initialPlant})
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const history = useHistory()
+  const history = useHistory();
   let id = localStorage.getItem('userId')
 
    //Schema for validation

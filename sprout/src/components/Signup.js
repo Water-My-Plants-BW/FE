@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from 'axios';
 import { Button } from 'reactstrap';
+import Navbar from './Navbar'
 
 const signUpSchema = yup.object().shape({
   username: yup.string().min(6,"minimum of 6 characters required").required("Username is a required field"),

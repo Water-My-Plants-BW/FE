@@ -7,7 +7,7 @@ import PlantPage from './components/PlantPage';
 import Signup from './components/Signup';
 import User from './components/User';
 import NavBar from './components/Navbar';
-import Background from './images/plantimg.jpg';
+import Background from './img/user.jpg';
 
 function App() {
   return ( 
@@ -25,11 +25,16 @@ function App() {
     </AppWrapper>
   );
 }
-
+// font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
 const AppWrapper = styled.div`
+background-image: url(${Background});
+background-repeat: repeat;
+background-position: center;
 width: 100%;
+height: 1000px;
 margin: 0;
-font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+outline: none;
+font-family: "Karma", sans-serif ;
 
 `
 export default App;

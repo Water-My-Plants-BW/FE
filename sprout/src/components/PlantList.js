@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from 'react-router-dom';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import * as yup from "yup";
 import Input from "./Input";
@@ -19,6 +20,7 @@ const PlantList = ({ plants, updatePlants }) => {
   const [newPlant, setNewPlant] = useState(initialPlant);
   const [errors, setErrors] = useState({...initialPlant})
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const history = useHistory()
   let id = localStorage.getItem('userId')
 
    //Schema for validation
@@ -78,6 +80,7 @@ const PlantList = ({ plants, updatePlants }) => {
       axiosWithAuth().get(`https://lambda-sprout.herokuapp.com/users/${id}/plants`)
       .then(response => {
         updatePlants(response.data)
+        setEditing(false)
       })
       .catch(error => console.log(error))
     })
@@ -106,39 +109,42 @@ const PlantList = ({ plants, updatePlants }) => {
     event.preventDefault();
     axiosWithAuth().post(`https://lambda-sprout.herokuapp.com/users/${id}/plants`, newPlant)
     .then(response => {
-      updatePlants(response.data)
+      const updatedPlants = [...plants, response.data]
+      updatePlants(updatedPlants)
       setNewPlant(initialPlant);
     })
     .catch(error => console.log(error))
   }
-
+  console.log(plants)
   return (
     <div>
+      <ListWrapper>
       <h1 className="plantsdisplay">Your Plants</h1>
       <ul>
-        {plants.map(plant => (
+      {plants.length < 1 ? (<div>LOADING</div>) : (plants.map(plant => (
           <li key={plant.id} onClick={() => editPlant(plant)}>
             <span>
               <span className="delete" onClick={e => {
-                    e.stopPropagation();
+                    // e.stopPropagation();
                     deletePlant(plant)
                   }
                 }>
                   x
               </span>{" "}
-              {plant.id}
+              {plant.nickname}
             </span>
           </li>
-        ))}
+      )))}
       </ul>
+     
       {editing && (
-        <form onSubmit={saveEdit}>
+        <form className="editform" onSubmit={saveEdit}>
           <legend>edit plant</legend>
           <label>
             plant nickname:
             <input
               onChange={e =>
-                setPlantToEdit({ ...plantToEdit, plant: e.target.value })
+                setPlantToEdit({ ...plantToEdit, nickname: e.target.value })
               }
               value={plantToEdit.nickname}
             />
@@ -171,8 +177,10 @@ const PlantList = ({ plants, updatePlants }) => {
             <button type="submit">save</button>
             <button onClick={() => setEditing(false)}>cancel</button>
           </div>
+          
         </form>
       )}
+      </ListWrapper>
       
       <form onSubmit={submitNewPlant}>
       <AddWrapper>
@@ -192,23 +200,46 @@ const PlantList = ({ plants, updatePlants }) => {
   );
 };
 
+const ListWrapper = styled.div`
+
+   width: 100%;
+   height: 250px;
+   display: flex;
+   font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+   justify-content: center;
+   border-radius: 10px;
+   font-family: "Karma", sans-serif;
+   @media(max-width: 600px){
+    width: 100%;
+}
+h1{
+  margin-top: 50px;
+}
+
+`;
+
 const AddWrapper = styled.div`
    width: 100%;
-   height: 500px;
+   height: 100%;
    display: flex;
    font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
    justify-content: center;
    align-items: center;
-   
-   
+   border-radius: 10px;
+   font-family: "Karma", sans-serif;
+   @media(max-width: 600px){
+    width: 100%;
+}
    .innerWrapper{
     width: 40%;
-    margin-top: 2rem;
+    margin-bottom: 40px;
     padding: 4rem;
     background: gray;
     color: lightgray;
     box-sizing: border-box;
-    
+    @media(max-width: 800px){
+     width: 100%;
+  }
    }
 
    .input{
@@ -222,6 +253,9 @@ const AddWrapper = styled.div`
      outline: none;
      line-height: normal;
      box-shadow: none;
+     @media(max-width: 800px){
+      width: 100%;
+  }
      :focus{
        border-bottom: 1px solid cyan;
      }

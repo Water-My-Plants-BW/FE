@@ -1,13 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { BrowserRouter as Router, withRouter} from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-const AppwithRouter = withRouter(App)
-ReactDOM.render(
-  <Router>
-    <AppwithRouter />
-  </Router>  , document.getElementById('root'));
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 
-  //withRouter gives component access to this.props.history, which means the component redirect the user.

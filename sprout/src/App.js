@@ -8,6 +8,8 @@ import User from './components/User'
 
 function App() {
   return (
+      <div>
+        <User />
     <Router>
       <div className="App">
         <Route exact path="/" component={Login} />
@@ -16,6 +18,7 @@ function App() {
         <PrivateRoute exact path='/profile' component={User} />
       </div>
     </Router>
+    </div>
   );
 }
 

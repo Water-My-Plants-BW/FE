@@ -1,12 +1,15 @@
 import axios from 'axios';
 
 export const axiosWithAuth = () => {
-    const token = localStorage.getItem('token');
     return axios.create({
-        baseURL: "https://lambda-sprout.herokuapp.com/",
+        // axios. create() function creates a new Axios instance. When you require('axios') , you get back an the default Axios instance. The reason why you would create an instance is to set custom defaults for your application.
+        
+        baseURL: `https://lambda-sprout.herokuapp.com/api`,
         headers: {
-            token: token
-            
+            token: localStorage.getItem('token')
         }
-    })
-}
+    });
+};
+
+
+

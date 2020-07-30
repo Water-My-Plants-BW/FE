@@ -2,13 +2,13 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import img from "../img/user.jpg"
 
 class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      id: "",
       phoneNumber: "",
       password: "",
     };
@@ -30,7 +30,7 @@ class User extends React.Component {
     }
 }
 
-  handleInput = (event) => {
+  handleInput = event => {
     event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -93,43 +93,91 @@ class User extends React.Component {
 
   render() {
     return (
-          <div className="loginform">
-            <form onSubmit={this.updateInfo}>
+      <Wrapper>
+      <UserBar>
+        <div className ='loginform'>
+          <form onSubmit= {this.updateInfo}>
               <input
-                className="input"
-                onChange={this.handleInput}
-                placeholder="name"
-                value={this.state.username}
-                name="username"
+                  className='input'
+                  onChange={this.handleInput}
+                  placeholder="name"
+                  value={this.state.username}
+                  name="username"
               />
               <input
-                className="input"
-                type="password"
-                onChange={this.handleInput}
-                placeholder=" new password"
-                value={this.state.password}
-                name="password"
+                  className='input'
+                  type= 'password'
+                  onChange={this.handleInput}
+                  placeholder=" new password"
+                  value={this.state.password}
+                  name="password"
               />
- 
               <input
-                className="input"
-                onChange={this.handleInput}
-                placeholder="phoneNumber"
-                value={this.state.phoneNumber}
-                name="phone"
+                  className='input'
+                  onChange={this.handleInput}
+                  placeholder="phone#"
+                  value={this.state.phoneNumber}
+                  name="phone"
               />
-            </form>
+          </form>
 
-            <div className="btn">
-              <button onClick={this.deleteMyAccount}>
-                Delete My Account permanantly
-              </button>
-              <button className="updateBtn" onClick={this.updateInfo}>
-                Update
-              </button>
-            </div>
+          <div className="btn">
+              <button onClick={this.deleteMyAccount}> Delete My Account permanantly</button>
+              <button className="updateBtn" onClick={this.updateInfo}>Update</button>
           </div>
-    );
-  }
+        
+          </div>
+      </UserBar>
+  </Wrapper>
+)
 }
+}
+
 export default withRouter(User);
+
+
+const Wrapper =styled.div`
+        background-image: url(${img});
+        background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+      width: 1500px;
+      height: 1000px;
+`
+const UserBar = styled.div`
+    box-shadow: 0px 2px 2px #9464FA;
+    text-align : center;
+    width: 400px;
+    border-radius: 5px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin: 50px auto;
+    .input{
+          margin: 5px;
+          height: 25px;
+          width : 300px;
+          border-radius: 5px;
+          border: none;
+          box-shadow: 0 2px 4px #272727;
+          text-align:center;
+          @media(max-width: 479px){
+              width: 250px;
+          }
+    }
+      button{
+        background-color: #009FB7;
+        border-radius: 5px;
+        color : white;
+        margin: 10px;
+        height: 30px;
+        border: none;       
+      }
+      button:hover{
+          box-shadow: 0 2px 4px #272727;
+          transform: scaleX(1.025) scaleY(1.025);
+          cursor : pointer;
+          transition: all 0.2s;
+      }
+      }
+    }
+  `

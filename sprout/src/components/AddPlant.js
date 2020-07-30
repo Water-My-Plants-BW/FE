@@ -154,7 +154,6 @@ const AddWrapper = styled.div`
     box-sizing: border-box;
     
    }
-
    .input{
      width: 100%;
      background: lightgray;
@@ -168,7 +167,6 @@ const AddWrapper = styled.div`
    }
   
    button{
-
      border: none;
      margin-top: 10px;
      padding: 1rem;
@@ -177,7 +175,6 @@ const AddWrapper = styled.div`
       
        background-color: #4CAF50;
        cursor: pointer;
-
      }
    }
 `;

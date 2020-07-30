@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from 'axios';
-import { Button } from 'reactstrap';
+import styled  from 'styled-components';
 import Navbar from './Navbar'
+import img from '../images/plants.jpg'
 
 const signUpSchema = yup.object().shape({
   username: yup.string().min(6,"minimum of 6 characters required").required("Username is a required field"),
@@ -79,9 +80,10 @@ const validateChange = event => {
 
   return (
     <div className="signup">
-    <Navbar />
-      <h1>SIGNUP</h1>
+      <SignupContainer>
+      
       <form onSubmit={submitForm}>
+      <h1>Create Account!</h1>
         <label htmlFor="username" className="username">
           Create username:
           <input
@@ -125,9 +127,61 @@ const validateChange = event => {
           />
           {errors.password.length > 10 ?<p className= "error">{errors.password}</p> : null}
         </label>
-        <Button color="warning"disabled={buttonDisabled} type="submit">Sign Up</Button>
+        <button color="warning"disabled={buttonDisabled} type="submit">Sign Up</button>
       </form>
+      </SignupContainer>
     </div>
   );
 }
+export const SignupContainer = styled.div`
+  .signup .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-image: url(${img});
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0;
+    font-size: 1.4rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    margin: 5px 0 0;
+    display: block;
+    width: 95%;
+    border: 1px solid #242829;
+    border-radius: 0.6 rem;
+    padding: 10px;
+    transition: all 0.3s;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    background-color: transparent;
+    color: #373e3f;
+    font-family: "Bebas Neue", cursive;
+  }
+  button {
+    width: fit-content;
+    background-color: #c8713d;
+    font-size: 2.5rem;
+    padding: 0.5rem 2.5rem;
+    border-radius: 0.6rem;
+    border: 4px solid #242829;
+    font-family: "Bebas Neue", cursive;
+    color: #f5f5f5;
+  }
+`;
 export default Signup;

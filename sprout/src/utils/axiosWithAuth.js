@@ -5,7 +5,8 @@ export const axiosWithAuth = () => {
     return axios.create({
         baseURL: "https://lambda-sprout.herokuapp.com/",
         headers: {
-            Authorization: token
+            token: token
+            
         }
     })
 }

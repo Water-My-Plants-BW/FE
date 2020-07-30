@@ -229,7 +229,7 @@ const AddWrapper = styled.div`
 
      border: none;
      margin-top: 10px;
-     padding: 1rem;
+     padding: 10px;
      transition-duration: 0.4s;
      :hover{
       

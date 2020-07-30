@@ -6,7 +6,6 @@ import PlantPage from './components/PlantPage';
 import Signup from './components/Signup';
 import User from './components/User';
 import NavBar from './components/Navbar';
-import AddPlant from "./components/AddPlant";
 
 function App() {
   return ( 
@@ -17,7 +16,6 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/addplant" component={AddPlant} />
         <PrivateRoute path='/plants' component={PlantPage} />
         <PrivateRoute path='/profile' component={User} />
         </Switch>

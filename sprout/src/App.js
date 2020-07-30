@@ -1,16 +1,18 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import PrivateRoute from './components/PrivateRoute';
+import styled from "styled-components";
 import Login from "./components/Login";
 import PlantPage from './components/PlantPage';
 import Signup from './components/Signup';
 import User from './components/User';
 import NavBar from './components/Navbar';
+import Background from './images/plantimg.jpg';
 
 function App() {
   return ( 
 
-    <div className="App">
+    <AppWrapper>
       <NavBar />                     
 
       <Switch>
@@ -20,8 +22,14 @@ function App() {
         <PrivateRoute path='/profile' component={User} />
         </Switch>
 
-    </div>
+    </AppWrapper>
   );
 }
 
+const AppWrapper = styled.div`
+width: 100%;
+margin: 0;
+font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
+
+`
 export default App;

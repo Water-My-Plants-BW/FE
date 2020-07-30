@@ -114,7 +114,7 @@ const PlantList = ({ plants, updatePlants }) => {
 
   return (
     <div>
-      <p>Your Plants</p>
+      <h1 className="plantsdisplay">Your Plants</h1>
       <ul>
         {plants.map(plant => (
           <li key={plant.id} onClick={() => editPlant(plant)}>
@@ -193,7 +193,7 @@ const PlantList = ({ plants, updatePlants }) => {
 };
 
 const AddWrapper = styled.div`
-   width: auto;
+   width: 100%;
    height: 500px;
    display: flex;
    font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
@@ -206,31 +206,36 @@ const AddWrapper = styled.div`
     margin-top: 2rem;
     padding: 4rem;
     background: gray;
-    display: flex;
-    flex-direction: column;
     color: lightgray;
     box-sizing: border-box;
     
    }
 
    .input{
-     width: 100%;
+     border: 0;
+     width: 90%;
      background: lightgray;
      margin: 5px 0 10px 0;
-     border: none;
      color: #282828;
      font-size: 16px;
-     padding: 10px 10px;
+     padding: 10px 14px;
      outline: none;
      line-height: normal;
+     box-shadow: none;
+     :focus{
+       border-bottom: 1px solid cyan;
+     }
    }
   
    button{
-
-     border: none;
+     width: 97%;
      margin-top: 10px;
      padding: 10px;
+     outline: none;
      transition-duration: 0.4s;
+     font-size: 16px;
+     outline: none;
+     border: 0;
      :hover{
       
        background-color: #4CAF50;

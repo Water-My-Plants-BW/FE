@@ -28,18 +28,18 @@ function User(props) {
 
     const updateAccount = (user) => {
 
-        if (user.phoneNumber === '' || user.password === '') {
-            setErr('Please fill out both of the fields.');
+        if (user.phoneNumber === '' ) {
+            setErr('Please fill out the field.');
             return;
         }
         else if (user.phoneNumber.length !== 10 ) {
             setErr('Please enter a valid phone number.');
             return;
         }
-        else if (user.password.length < 4 || user.password.length >= 16) {
-            setErr('Your password must be between 4 and 16 characters.');
-            return;
-        }
+        // else if (user.password.length < 4 || user.password.length >= 16) {
+        //     setErr('Your password must be between 4 and 16 characters.');
+        //     return;
+        // }
 
         axiosWithAuth().put(`/users/${id}`, user)
             .then((res) => {
@@ -75,14 +75,14 @@ function User(props) {
                     onChange={handleChange}
                     autoComplete="off"
                 />
-                <input
+                {/* <input
                     type="password"
                     name="password"
                     placeholder="New Password"
                     value={updatedUser.password}
                     onChange={handleChange}
                     autoComplete="off"
-                />
+                /> */}
                 <button className ="btn" type="submit">Update Account</button>
             </form>
             {err && <div className="error">{err}</div>}
@@ -183,43 +183,34 @@ letter-spacing: 0.1rem;
 }
 
 
-      `
+.usercard {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #d1ffd6;
+  width: 100%;
+  padding: 1.rem 1rem;
+  border-radius: 0.3rem;
+  letter-spacing: 0.1rem;
+  color: #444444;
+  box-shadow: 0px 2px 5px -5px;
+  .card-avatar {
+      width: 25%;
+      img {
+          width: 100%;
+          object-fit: cover;
+          border: 1px solid #444444;
+          border-radius: 50%;
+      }    
+      
 
-  const usercard = styled.div`
-    box-shadow: 0px 2px 2px #9464FA;
-    text-align : center;
-    width: 400px;
-    border-radius: 5px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    margin: 50px auto;
-    
 
 
     
     
-  `
+ `
       
 
 export default User;
 
 
-  // .user-card {
-    //     display: flex;
-    //     justify-content: space-evenly;
-    //     align-items: center;
-    //     background: #d1ffd6;
-    //     width: 100%;
-    //     padding: 1.rem 1rem;
-    //     border-radius: 0.3rem;
-    //     letter-spacing: 0.1rem;
-    //     color: #444444;
-    //     box-shadow: 0px 2px 5px -5px;
-    //     .card-avatar {
-    //         width: 25%;
-    //         img {
-    //             width: 100%;
-    //             object-fit: cover;
-    //             border: 1px solid #444444;
-    //             border-radius: 50%;
-    //         }    

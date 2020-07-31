@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import { Button } from 'reactstrap';
-import Navbar from './Navbar'
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import Navbar from './Navbar'
+import styled from 'styled-components'
+import img2 from '../images/plants.jpg'
+import { useHistory } from 'react-router-dom';
+import img from "../img/user.jpg"
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -29,6 +32,8 @@ function Login() {
   const [buttonDisable, setButtonDisable] = useState(true);
 
   const [post, setPost] = useState([]);
+
+  let history = useHistory();
 
   useEffect(() => {
     loginSchema.isValid(login).then((valid) => {
@@ -77,14 +82,15 @@ function Login() {
         username: "",
         password: "",
       });
+      history.push(`/plants`);
     });
   };
 
   return (
     <div className="login">
-    <Navbar />
-      <h1>LOGIN</h1>
+    <LoginContainer> 
       <form onSubmit={submitLogin}>
+      <h1>LOGIN</h1>
         <label htmlFor="username" className="loginUsername">
           Enter username
           <input
@@ -117,11 +123,61 @@ function Login() {
             <p className="error">{errors.password}</p>
           ) : null}
         </label>
-        <Button color="warning"disabled={buttonDisable} type="submit">
+        <button color="warning"disabled={buttonDisable} type="submit">
           Log In
-        </Button>
+        </button>
       </form>
+      </LoginContainer>
     </div>
   );
 }
+export const LoginContainer = styled.div`
+  .signup .login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-image: url(${img2});
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0;
+    font-size: 1.4rem;
+  }
+  input,
+  textarea {
+    width: 100%;
+    margin: 5px 0 0;
+    display: block;
+    width: 95%;
+    border: 1px solid #242829;
+    border-radius: 0.6 rem;
+    padding: 10px;
+    transition: all 0.3s;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    background-color: transparent;
+    color: #373e3f;
+    font-family: "Bebas Neue", cursive;
+  }
+  button {
+    width: fit-content;
+    background-color: #c8713d;
+    font-size: 2.5rem;
+    padding: 0.5rem 2.5rem;
+    border-radius: 0.6rem;
+    border: 4px solid #242829;
+    font-family: "Bebas Neue", cursive;
+    color: #f5f5f5;
+  }
+`;
 export default Login;

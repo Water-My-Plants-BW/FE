@@ -9,7 +9,7 @@ import Navbar from './Navbar'
 function User(props) {
 
     const name = localStorage.getItem('username');
-    const id = Number(localStorage.getItem('id'));
+    const id = Number(localStorage.getItem('userId'));
     let history = useHistory();
     // The useHistory hook gives you access to the history instance that you may use to navigate.
 
@@ -42,7 +42,7 @@ function User(props) {
         //     return;
         // }
 
-        axiosWithAuth().put(`/users/${id}`, user)
+        axiosWithAuth().put(`/user/${id}`, user)
             .then((res) => {
                 console.log(res);
                 history.push(`/plants`);

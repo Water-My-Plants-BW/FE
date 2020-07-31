@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled  from 'styled-components';
 import Navbar from './Navbar'
 import img from '../images/plants.jpg'
+import { useHistory } from 'react-router-dom';
 
 const signUpSchema = yup.object().shape({
   username: yup.string().min(6,"minimum of 6 characters required").required("Username is a required field"),
@@ -28,6 +29,8 @@ function Signup() {
 const [buttonDisabled, setButtonDisabled] = useState(true);
 
  const [post, setPost]= useState([]);
+
+ let history = useHistory();
 
 useEffect(() => {
   signUpSchema.isValid(signUp).then(valid => {
@@ -74,7 +77,7 @@ const validateChange = event => {
     password: "",
 
       })
-
+      history.push(`/`);
     })
   };
 

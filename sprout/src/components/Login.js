@@ -4,6 +4,7 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Navbar from './Navbar'
 import styled from 'styled-components'
 import img from '../images/plants.jpg'
+import { useHistory } from 'react-router-dom';
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -30,6 +31,8 @@ function Login() {
   const [buttonDisable, setButtonDisable] = useState(true);
 
   const [post, setPost] = useState([]);
+
+  let history = useHistory();
 
   useEffect(() => {
     loginSchema.isValid(login).then((valid) => {
@@ -78,6 +81,7 @@ function Login() {
         username: "",
         password: "",
       });
+      history.push(`/plants`);
     });
   };
 

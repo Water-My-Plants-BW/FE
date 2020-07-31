@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button } from 'reactstrap';
-import Navbar from './Navbar'
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const loginSchema = yup.object().shape({

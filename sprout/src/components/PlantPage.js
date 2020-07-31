@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import PlantList from "./PlantList";
-import Navbar from './Navbar'
 
 const PlantPage = () => {
   const [plantList, setPlantList] = useState([]);
@@ -16,7 +15,6 @@ const PlantPage = () => {
 
   return (
     <>
-      <Navbar />
       <PlantList plants={plantList} updatePlants={setPlantList} />
     </>
   );

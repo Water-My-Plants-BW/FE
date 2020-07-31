@@ -5,6 +5,8 @@ import Navbar from './Navbar'
 import styled from 'styled-components'
 import img from '../images/plants.jpg'
 import { useHistory } from 'react-router-dom';
+import styled from "styled-components";
+import img from "../img/user.jpg"
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -87,7 +89,6 @@ function Login() {
 
   return (
     <div className="login">
-    <Navbar />
     <LoginContainer> 
       <form onSubmit={submitLogin}>
       <h1>LOGIN</h1>

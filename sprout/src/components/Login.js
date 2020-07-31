@@ -3,9 +3,8 @@ import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import Navbar from './Navbar'
 import styled from 'styled-components'
-import img from '../images/plants.jpg'
+import img2 from '../images/plants.jpg'
 import { useHistory } from 'react-router-dom';
-import styled from "styled-components";
 import img from "../img/user.jpg"
 
 const loginSchema = yup.object().shape({
@@ -145,7 +144,7 @@ export const LoginContainer = styled.div`
     width: 90%;
     max-width: 500px;
     margin: 0 auto;
-    background-image: url(${img});
+    background-image: url(${img2});
   }
 
   label {

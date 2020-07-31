@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button } from 'reactstrap';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import Navbar from './Navbar'
+import styled from 'styled-components'
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -13,6 +15,8 @@ const loginSchema = yup.object().shape({
     .min(7, "minimum of 7 characters required")
     .required(),
 });
+
+const img = require("../img/user.jpg")
 
 function Login() {
   const [login, setLogin] = useState({

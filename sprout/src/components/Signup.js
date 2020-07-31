@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from 'axios';
 import styled  from 'styled-components';
-import Navbar from './Navbar'
 import img from '../images/plants.jpg'
 
 const signUpSchema = yup.object().shape({
@@ -81,7 +80,6 @@ const validateChange = event => {
   return (
     <div className="signup">
       <SignupContainer>
-      <Navbar />
       <form onSubmit={submitForm}>
       <h1>Create Account!</h1>
         <label htmlFor="username" className="username">

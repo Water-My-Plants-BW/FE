@@ -10,7 +10,7 @@ function Input(props) {
     
         <div>
      <input {...props}></input>
-     { props.errors.length != 0 && <p>{errorMessage}</p>}
+     { props.errors.length != 0 && <p style={{color: "cyan"}}>{errorMessage}</p>}
      </div>
   );
 }

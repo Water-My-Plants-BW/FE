@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import { Button } from 'reactstrap';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import styled from "styled-components";
 import img from "../img/user.jpg"

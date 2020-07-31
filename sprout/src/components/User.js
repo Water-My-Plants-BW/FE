@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 import img from "../img/user.jpg"
-import Navbar from './Navbar'
 
 
 function User(props) {
@@ -54,7 +53,6 @@ function User(props) {
 
     return (
         <Container>
-          <Navbar/>
             <div className="usercard">
           
 

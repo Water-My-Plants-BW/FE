@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 
 const initialPlant = {
   id: Date.now(),
@@ -13,7 +14,6 @@ const PlantList = ({ plants, updatePlants }) => {
   const [editing, setEditing] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState(initialPlant);
   const [newPlant, setNewPlant] = useState(initialPlant);
-  const history = useHistory()
   let id = localStorage.getItem('userId')
 
   const editPlant = plant => {
@@ -51,7 +51,6 @@ const PlantList = ({ plants, updatePlants }) => {
       const updatedPlants = [...plants, response.data]
       updatePlants(updatedPlants)
       setNewPlant(initialPlant);
-      history.push('/plants')
     })
     .catch(error => console.log(error))
   }
@@ -61,7 +60,7 @@ const PlantList = ({ plants, updatePlants }) => {
     <div>
       <p>Your Plants</p>
       <ul>
-        {plants.length < 1 ? (<div>LOADING</div>) : (plants.map(plant => (
+        {plants.length < 1 ? (<div>Please add a plant!</div>) : (plants.map(plant => (
           <li key={plant.id} onClick={() => editPlant(plant)}>
             <span>
               <span className="delete" onClick={e => {

@@ -1,183 +1,205 @@
-import React from "react";
-import axios from "axios";
-import styled from "styled-components";
-import { withRouter } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom';
 import img from "../img/user.jpg"
+import Navbar from './Navbar'
 
-class User extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      phoneNumber: "",
-      password: "",
-    };
-  }
-  componentDidMount() {
-    let id = localStorage.getItem(`userId`);
-    const url = `https://lambda-sprout.herokuapp.com/api/users/${id}`;
-    this.setState({ id: id });
-    
-      // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. 
-      try {
-        axios
-            .get(url, { headers: { Authorization: localStorage.getItem("token") } })
-            .then(res => {
-                this.setState({ username: res.data.username,  phoneNumber: res.data.phoneNumber})
-            })
-    } catch (err) {
-        console.log(err);
-    }
-}
 
-  handleInput = event => {
-    event.preventDefault();
-    this.setState({ [event.target.name]: event.target.value });
-  };
+function User(props) {
 
-  updateInfo = (data, id) => {
-    data = {
-      username: this.state.username,
-      password: this.state.password,
-      phoneNumber: this.state.phoneNumber,
-    };
-    id = localStorage.getItem(`userId`);
-    console.log(id);
-    const url =
-      `https://lambda-sprout.herokuapp.com//api/users/${id}` ||
+    const name = localStorage.getItem('username');
+    const id = Number(localStorage.getItem('userId'));
+    let history = useHistory();
+    // The useHistory hook gives you access to the history instance that you may use to navigate.
 
-              `http://localhost:3000/api/users/${id}`;
+    const [updatedUser, setUpdatedUser] = useState({
+        password: '',
+        phoneNumber: ''
+    })
 
-      // The try statement lets you test a block of code for errors. The catch statement lets you handle the error. The throw statement lets you create custom errors. 
-      try{
-      axios
-        .put(url, data, {
-          headers: { Authorization: localStorage.getItem("token") },
-        })
-        .then((res) => {
-          console.log(res);
-          this.setState({
-            username: res.data.username,
-            phoneNumber: res.data.phoneNumber,
-            password: res.data.password,
-          });
-          alert("Your Update Submitted Successfully");
-          console.log(res.data.phoneNumber);
-          this.props.history.push("/plants");
+    const [err, setErr] = useState('');
+
+    const handleChange = (e) => {
+        setUpdatedUser({
+            ...updatedUser,
+            [e.target.name]: e.target.value
         });
-    } catch (err) {
-      console.log(err);
     }
-  };
 
-  deleteMyAccount = (id) => {
-    id = localStorage.getItem(`userId`);
-    const url =
-    `https://lambda-sprout.herokuapp.com/api/users/${id}` ||
-      `http://localhost:3000/api/users/${id}`;
-      
-    alert("Your Account Will be deleted permanantly");
-    try {
-      axios.delete(url).then((res) => {
-        console.log(res);
-        localStorage.clear();
-        sessionStorage.clear();
-        alert("Your Account deleted Successfully");
-        this.props.history.push("/");
-        window.location.reload(true);
-      });
-    } catch (err) {
-      console.log(err);
+    const updateAccount = (user) => {
+
+        if (user.phoneNumber === '' ) {
+            setErr('Please fill out the field.');
+            return;
+        }
+        else if (user.phoneNumber.length !== 10 ) {
+            setErr('Please enter a valid phone number.');
+            return;
+        }
+        // else if (user.password.length < 4 || user.password.length >= 16) {
+        //     setErr('Your password must be between 4 and 16 characters.');
+        //     return;
+        // }
+
+        axiosWithAuth().put(`/user/${id}`, user)
+            .then((res) => {
+                console.log(res);
+                history.push(`/plants`);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
-  };
 
-  render() {
     return (
-      <Wrapper>
-      <UserBar>
-        <div className ='loginform'>
-          <form onSubmit= {this.updateInfo}>
-              <input
-                  className='input'
-                  onChange={this.handleInput}
-                  placeholder="name"
-                  value={this.state.username}
-                  name="username"
-              />
-              <input
-                  className='input'
-                  type= 'password'
-                  onChange={this.handleInput}
-                  placeholder=" new password"
-                  value={this.state.password}
-                  name="password"
-              />
-              <input
-                  className='input'
-                  onChange={this.handleInput}
-                  placeholder="phone#"
-                  value={this.state.phoneNumber}
-                  name="phone"
-              />
-          </form>
+        <Container>
+          <Navbar/>
+            <div className="usercard">
+          
 
-          <div className="btn">
-              <button onClick={this.deleteMyAccount}> Delete My Account permanantly</button>
-              <button className="updateBtn" onClick={this.updateInfo}>Update</button>
-          </div>
-        
-          </div>
-      </UserBar>
-  </Wrapper>
-)
+                <div className="card-info">
+                    <h3>Hey! <span className="strong">{name}</span></h3>
+                    <p>What would you like to update?</p>
+                </div>
+            </div>
+
+            <h4>Update Account:</h4>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                updateAccount(updatedUser);
+            }}>
+                <input
+                    type="text"
+                    name="phoneNumber"
+                    placeholder="New Phone Number"
+                    value={updatedUser.phoneNumber}
+                    onChange={handleChange}
+                    autoComplete="off"
+                />
+                {/* <input
+                    type="password"
+                    name="password"
+                    placeholder="New Password"
+                    value={updatedUser.password}
+                    onChange={handleChange}
+                    autoComplete="off"
+                /> */}
+                <button className ="btn" type="submit">Update Account</button>
+            </form>
+            {err && <div className="error">{err}</div>}
+        </Container>
+    )
 }
-}
 
-export default withRouter(User);
-
-
-const Wrapper =styled.div`
-        background-image: url(${img});
+const Container = styled.div`
+background-image: url(${img});
         background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
       width: 1500px;
       height: 1000px;
-`
-const UserBar = styled.div`
-    box-shadow: 0px 2px 2px #9464FA;
-    text-align : center;
-    width: 400px;
-    border-radius: 5px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-    margin: 50px auto;
-    .input{
-          margin: 5px;
-          height: 25px;
-          width : 300px;
-          border-radius: 5px;
-          border: none;
-          box-shadow: 0 2px 4px #272727;
-          text-align:center;
-          @media(max-width: 479px){
-              width: 250px;
-          }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    input {
+        margin: 0.5rem 0;
+        width: 20rem;
+        height: 2.5rem;
+        background: #bfbfbf;
+        border: none;
+        border-radius: 0.3rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 300;
+        letter-spacing: 0.1rem;
+        &:focus {
+            outline: none;
+        border: 1px solid #ababab;
     }
-      button{
-        background-color: #009FB7;
-        border-radius: 5px;
-        color : white;
-        margin: 10px;
-        height: 30px;
-        border: none;       
-      }
-      button:hover{
-          box-shadow: 0 2px 4px #272727;
-          transform: scaleX(1.025) scaleY(1.025);
-          cursor : pointer;
-          transition: all 0.2s;
-      }
-      }
+}
+      
+      h3 {
+        font-size: 2rem;
+        font-weight: 500;
+        letter-spacing: 0.1rem;
     }
-  `
+    h4 {
+      margin: 2rem 0 2rem;
+      font-size: 1.2em;
+      font-weight: 300;
+      letter-spacing: 0.1rem;
+      color: red;
+      padding-bottom: 1rem;
+      border-bottom: 1px dotted #444444;
+  }
+  p {
+font-size: 2rem;
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+}
+.strong {
+    font-weight: 700;
+}
+.input{
+  margin: 5px;
+  height: 25px;
+  width : 300px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 2px 4px #272727;
+  text-align:center;
+  @media(max-width: 479px){
+      width: 250px;
+  }
+}
+button{
+background-color: #009FB7;
+border-radius: 5px;
+color : white;
+margin: 10px;
+height: 30px;
+border: none;       
+}
+button:hover{
+  box-shadow: 0 2px 4px #272727;
+  transform: scaleX(1.025) scaleY(1.025);
+  cursor : pointer;
+  transition: all 0.2s;
+}
+.error {
+margin-top: 2rem;
+width: 100%;
+text-align: center;
+color: red;
+font-size: 1.4rem;
+font-weight: 300;
+letter-spacing: 0.1rem;
+}
+.usercard {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #d1ffd6;
+  width: 100%;
+  padding: 1.rem 1rem;
+  border-radius: 0.3rem;
+  letter-spacing: 0.1rem;
+  color: #444444;
+  box-shadow: 0px 2px 5px -5px;
+  .card-avatar {
+      width: 25%;
+      img {
+          width: 100%;
+          object-fit: cover;
+          border: 1px solid #444444;
+          border-radius: 50%;
+      }    
+      
+    
+    
+ `
+      
+
+export default User;

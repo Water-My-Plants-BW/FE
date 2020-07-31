@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Button } from 'reactstrap';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import styled from "styled-components";
+import img from "../img/user.jpg"
 
 const loginSchema = yup.object().shape({
   username: yup
@@ -81,7 +83,6 @@ function Login() {
 
   return (
     <div className="login">
-    <Navbar />
     <LoginContainer> 
       <form onSubmit={submitLogin}>
       <h1>LOGIN</h1>

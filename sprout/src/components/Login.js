@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
-import styled  from 'styled-components';
-import Navbar from './Navbar'
-import img from '../images/plants.jpg'
+import { Button } from 'reactstrap';
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const loginSchema = yup.object().shape({
